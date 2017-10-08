@@ -93,9 +93,16 @@ def main():
 
     # all_info = {}
     for i, post in enumerate(page["data"]):
+        if not post.get("message"):
+            continue 
         message = post["message"]
         is_driving_route, start, dest = getdata(message)
+        if not post.get("updated_time"):
+            continue 
         time = post["updated_time"]
+        if not post.get("from") or not post["from"].get("name"):
+            continue 
+
         name = post["from"]["name"]
         link = "http://www.facebook.com/" + post["id"] 
         if start and dest:
